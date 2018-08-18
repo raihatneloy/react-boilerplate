@@ -21,15 +21,18 @@ class ContextProvider extends React.Component {
       ],
       actions: {
         addToList: (task) => {
-          var toDoList = this.state.data.toDoList;
+          var toDoList = this.state.toDoList;
           var newId = toDoList.length;
+          var taskObject = {
+            completed: false,
+            text: task,
+            id: newId,
+          };
+
+          toDoList = [...toDoList, taskObject];
 
           this.setState({
-            toDoList: [...toDoList, {
-              completed: false,
-              text: task,
-              id: newId
-            }]
+            toDoList: toDoList,
           });
         }
       }
