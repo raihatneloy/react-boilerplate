@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './ToDoList.css';
 import {ContextConsumer} from '../../context/ContextStore';
 
 export default class ToDoList extends React.Component {
@@ -21,7 +22,7 @@ export default class ToDoList extends React.Component {
     return (
       <ContextConsumer>
       { data =>
-        <div>
+        <div className="todolist-box">
           <input value={this.state.task} onChange={this.handleInputChange.bind(this)}></input>
           <button onClick={() => {
             data.actions.addToList(this.state.task);
@@ -29,18 +30,30 @@ export default class ToDoList extends React.Component {
               task: ""
             });
           }}>Add Task</button>
-          <ul>
-            {
-              data.toDoList.map((element) => {
-                return (
-                  <li>
-                    {element.completed===true && <strike>{element.text}</strike>}
-                    {element.completed===false && element.text}
-                  </li>
-                );
-              })
-            }
-          </ul>
+          <div>
+          {
+            data.toDoList.map((element) => {
+              return (
+                <div>
+                  {element.completed===true && (
+                  <div>
+                    <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}checked/>
+                    <strike>{element.text}</strike>
+                  </div>
+                  )
+                  }
+                  {element.completed===false && (
+                  <div>
+                    <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}/>
+                    {element.text}
+                  </div>
+                  )
+                  }
+                </div>
+              );
+            })
+          }
+          </div>
         </div>
       }
       </ContextConsumer>

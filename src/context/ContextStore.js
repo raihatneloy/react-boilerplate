@@ -34,6 +34,14 @@ class ContextProvider extends React.Component {
           this.setState({
             toDoList: toDoList,
           });
+        },
+        toggleCompleteState: (id) => {
+          var toDoList = this.state.toDoList;
+          toDoList[id].completed = !toDoList[id].completed;
+
+          this.setState({
+            toDoList: toDoList,
+          })
         }
       }
     }
