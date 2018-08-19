@@ -23,7 +23,19 @@ export default class ToDoList extends React.Component {
       <ContextConsumer>
       { data =>
         <div className="todolist-box">
-          <input value={this.state.task} onChange={this.handleInputChange.bind(this)}></input>
+          <input
+            value={this.state.task}
+            onChange={this.handleInputChange.bind(this)}
+            onKeyPress={(e) => {
+              if (e.key !== 'Enter')
+                return;
+
+              data.actions.addToList(this.state.task);
+              this.setState({
+                task: ""
+              });
+            }}
+          />
           <button onClick={() => {
             data.actions.addToList(this.state.task);
             this.setState({
@@ -39,7 +51,7 @@ export default class ToDoList extends React.Component {
                   <div>
                     <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}checked/>
                     <strike>{element.text}</strike>
-                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash" />
+                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash-alt" />
                   </div>
                   )
                   }
@@ -47,7 +59,7 @@ export default class ToDoList extends React.Component {
                   <div>
                     <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}/>
                     {element.text}
-                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash" />
+                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash-alt" />
                   </div>
                   )
                   }
