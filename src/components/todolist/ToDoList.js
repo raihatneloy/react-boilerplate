@@ -39,6 +39,7 @@ export default class ToDoList extends React.Component {
                   <div>
                     <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}checked/>
                     <strike>{element.text}</strike>
+                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash" />
                   </div>
                   )
                   }
@@ -46,6 +47,7 @@ export default class ToDoList extends React.Component {
                   <div>
                     <input type="checkbox" onClick={() => data.actions.toggleCompleteState(element.id)}/>
                     {element.text}
+                    <i onClick={() => data.actions.deleteTask(element.id)}style={{margin: "10px"}} className="fa fa-trash" />
                   </div>
                   )
                   }

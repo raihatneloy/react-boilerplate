@@ -7,6 +7,7 @@ class ContextProvider extends React.Component {
     super(props);
 
     this.state = {
+      maxId: 1,
       toDoList: [
         {
           completed: false,
@@ -22,7 +23,7 @@ class ContextProvider extends React.Component {
       actions: {
         addToList: (task) => {
           var toDoList = this.state.toDoList;
-          var newId = toDoList.length;
+          var newId = this.state.maxId+1;
           var taskObject = {
             completed: false,
             text: task,
@@ -33,14 +34,29 @@ class ContextProvider extends React.Component {
 
           this.setState({
             toDoList: toDoList,
+            maxId: newId,
           });
         },
         toggleCompleteState: (id) => {
           var toDoList = this.state.toDoList;
-          toDoList[id].completed = !toDoList[id].completed;
+
+          for (var i=0;i<toDoList.length;i++){
+            if (toDoList[i].id === id){
+                toDoList[i].completed = !toDoList[i].completed;
+                break;
+            }
+          }
 
           this.setState({
             toDoList: toDoList,
+          })
+        },
+        deleteTask: (id) => {
+          var toDoList = this.state.toDoList;
+
+          toDoList = toDoList.filter(element => element.id !== id);
+          this.setState({
+            toDoList: toDoList
           })
         }
       }
